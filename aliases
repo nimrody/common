@@ -1,0 +1,9 @@
+alias rm='rm -i'
+alias cp='cp -i'
+alias lt='ls -lsrt'
+alias l='ls -l'
+
+alias gonim='ssh -t nimrody.com "tmux attach"'
+
+alias migrate='rake db:migrate && rake db:test:prepare'
+

@@ -1,0 +1,10 @@
+[user]
+        email = nimrody@gmail.com
+
+[color]
+        interactive = auto
+
+[alias]
+        l = log --name-status --decorate
+        co = checkout
+
