@@ -10,3 +10,8 @@ for i in $list; do
     $cmd && echo "Done."
 done
 
+if [ ! -e ~/.vim/bundle/vim-bundler ]; then
+    cd ~/.vim/bundle
+    git clone git://github.com/tpope/vim-bundler.git
+fi
+

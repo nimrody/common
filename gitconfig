@@ -8,3 +8,5 @@
         l = log --name-status --decorate
         co = checkout
 
+[core]
+	editor = /usr/bin/vim
