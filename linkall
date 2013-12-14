@@ -10,10 +10,11 @@ for i in $list; do
     $cmd && echo "Done."
 done
 
-if [ ! -e ~/.vim/bundle/vim-bundler ]; then
+if [ ! -e $HOME/.vim ]; then
     ln -sf $d/vim $HOME/.vim
     mkdir $HOME/.vim/bundle
-    cd $HOME/.vim/bundle
-    git clone git://github.com/tpope/vim-bundler.git
+    git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+else
+    echo .vim directory or link exists. Aborting.
 fi
 
