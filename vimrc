@@ -16,6 +16,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-bundler'
 Bundle 'Shougo/unite.vim'
+Bundle 'kien/ctrlp.vim'
 
 " Bundle 'L9'  " automatically assumes github user vim-scripts
 " Bundle 'git://git.wincent.com/command-t.git' " specific repo
@@ -70,6 +71,7 @@ autocmd FileType matlab call Mdefaults()
 autocmd FileType ruby   call RubyDefaults()
 autocmd FileType eruby  call RubyDefaults()
 
+au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tun set filetype=paramtune
 au BufRead,BufNewFile *.cfg set filetype=paramtune
 au! Syntax paramtune source ~/.vim/syntax/paramtune.vim
