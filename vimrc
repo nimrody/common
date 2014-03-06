@@ -162,10 +162,16 @@ nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 
 " Switch between .h and .c (XXX: handle .cpp automatically)
 fun! FlipExt()
-    if match(expand("%"),'\.c') > 0
+    if match(expand("%"),'\.\(c\|cpp\)$') > 0
         exe ":e %<.h"
     elseif match(expand("%"),"\\.h") > 0
-        exe ":e %<.c"
+        if filereadable(expand("%<") . ".cpp")
+            exe ":e %<.cpp"
+        elseif filereadable(expand("%<") . ".c")
+            exe ":e %<.c"
+        else
+            echo "Corresponding .c or .cpp file does not exist"
+        end
     endif
 endfun
 
