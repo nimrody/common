@@ -27,6 +27,7 @@ Bundle 'flazz/vim-colorschemes'
 " Bundle 'DirDiff.vim'
 Bundle 'matlab.vim'
 Bundle 'gtags.vim'
+Plugin 'https://github.com/fatih/vim-go'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 
