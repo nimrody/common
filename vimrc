@@ -7,7 +7,7 @@ call vundle#rc()
 
 let maplocalleader = ","
 
-runtime macros/matchit.vim
+" runtime macros/matchit.vim
 let g:vundle_default_git_proto = 'git'
 
 
@@ -20,7 +20,7 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-rails'
 " Bundle 'tpope/vim-bundler'
 " Bundle 'Shougo/unite.vim'
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'flazz/vim-colorschemes'
 " Bundle 'L9'
 " Bundle 'FuzzyFinder'
@@ -34,7 +34,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 
 Plugin 'bling/vim-airline'
-Plugin 'WeiChungWu/vim-SystemVerilog'
+" Plugin 'WeiChungWu/vim-SystemVerilog'
 Plugin 'jeetsukumaran/vim-buffergator'
 
 
@@ -49,12 +49,13 @@ Plugin 'restore_view.vim'
 let g:DirDiffExcludes = ".git,obj,bin,HeaderFiles,_*,cscope*,Depend*,*.keep,*.contrib,*.keep.[1-9],*.contrib.[1-9],*.dll,*.a"
 let g:DirDiffAddArgs = "-w" 
 
-let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cache_dir = $HOME.'/tmp/ctrlp'
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_max_files=0 
 "let g:ctrlp_custom_ignore = '_*/*'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class     " MacOSX/Linux
 
 
 set foldmethod=manual
@@ -139,6 +140,7 @@ autocmd FileType eruby  call RubyDefaults()
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tun set filetype=paramtune
 au BufRead,BufNewFile *.cfg set filetype=paramtune
+au BufRead,BufNewFile *.json  set filetype=none
 au! Syntax paramtune source ~/.vim/syntax/paramtune.vim
 
 function! CurrentFile()
@@ -442,4 +444,10 @@ noremap <leader>0 :tablast<cr>
 noremap <C-Left> :tabprevious<CR>
 noremap <C-Right> :tabnext<CR>
 
+
+set guifont="Droid Sans Mono 11"
+
+command Json :%!python -m json.tool
+
+command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
 
