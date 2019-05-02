@@ -20,7 +20,8 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-rails'
 " Bundle 'tpope/vim-bundler'
 " Bundle 'Shougo/unite.vim'
-Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf'
 Bundle 'flazz/vim-colorschemes'
 " Bundle 'L9'
 " Bundle 'FuzzyFinder'
@@ -28,6 +29,12 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'matlab.vim'
 Bundle 'gtags.vim'
 Plugin 'https://github.com/fatih/vim-go'
+Plugin 'https://github.com/chrisbra/vim-diff-enhanced'
+
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
+
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 
@@ -105,7 +112,8 @@ set dir=/tmp
 set nocompatible
 set backup
 set backupdir=~/tmp
-set noswapfile       
+set swapfile       
+set directory^=$HOME/tmp  " store wap files in ~/tmp
 set ignorecase
 set smartcase       " override ignorecase if search pattern contains uppercase characters
 set ruler
@@ -136,6 +144,9 @@ autocmd FileType cpp    call Cdefaults()
 autocmd FileType matlab call Mdefaults()
 autocmd FileType ruby   call RubyDefaults()
 autocmd FileType eruby  call RubyDefaults()
+autocmd FileType javascript     call JSdefaults()
+autocmd FileType javascript.jsx    call JSdefaults()
+autocmd FileType html    call HTMLdefaults()
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tun set filetype=paramtune
@@ -154,8 +165,17 @@ function! Cdefaults()
 	set comments=sr:/*,mb:*,el:*/,://
 endfunction
 
+function! JSdefaults()
+	set cindent shiftwidth=2 tabstop=2
+	set formatoptions=croql
+endfunction
+
 function! Mdefaults()
 	set ai shiftwidth=4 tabstop=4
+endfunction
+
+function! HTMLdefaults()
+	set ai shiftwidth=4 tabstop=4 
 endfunction
 
 function! RubyDefaults()
@@ -447,7 +467,22 @@ noremap <C-Right> :tabnext<CR>
 
 set guifont="Droid Sans Mono 11"
 
-command Json :%!python -m json.tool
+command Json :%!jq .
+command Xml :%!xmllint --format --recover -
 
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
 
+function! CompareJson()
+    normal dd
+    vs temp
+    normal p
+    :Json
+    diffthis
+    wincmd w
+    :Json
+    diffthis
+endfun
+
+command! CompareJson call CompareJson()
+
+nmap <C-P> :FZF<CR>

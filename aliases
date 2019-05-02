@@ -11,4 +11,37 @@ alias migrate='rake db:migrate && rake db:test:prepare'
 alias qake='/home/nimrody/qake//qake'
 alias rm='rm -i'
 alias cp='cp -i'
-alias gon='ssh -t ncrawlers "tmux attach"'
+alias mv='mv -i'
+alias awsadmin='aws --profile=admin_nimrod --region=us-west-2'
+
+#ssh  prodcataloga  'sudo docker stats $(docker ps --format "{{.Names}}")'
+alias drill='ssh -t jenkins.tensera.net "tmux attach"'
+alias seoul='ssh -t prod-seoul-compute0.tensera.net -t "tmux attach"'
+
+function git {
+    if [[ ($1 == svn) && ($2 == dcommit) ]]
+    then
+        curr_branch=$(command git symbolic-ref --quiet --short HEAD)
+        if [[ ($curr_branch != master) && ($curr_branch != '(no branch)') ]]
+        then
+            echo "Committing from $curr_branch; are you sure? [y/N]"
+            read resp
+            if [[ ($resp != y) && ($resp != Y) ]]
+            then
+                return 2
+            fi
+        fi
+        if grep nimrod <(git diff git-svn | grep "^+"); then
+            echo Committing code with "nimrod" temporary comment. Aborting.
+            return 2
+        fi
+        if grep DEBUG <(git diff git-svn | grep "^+"); then
+            echo Committing code with "DEBUG" keyword. Aborting.
+            return 2
+        fi
+    fi
+
+    command git "$@"
+}
+
+

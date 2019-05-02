@@ -2,7 +2,7 @@
 
 d=$PWD
 
-list="profile bashrc aliases emacs emacs.d gitconfig tmux vimrc"
+list="profile bashrc aliases emacs emacs.d gitconfig tmux.conf vimrc"
 
 for i in $list; do
     cmd="ln -s $d/$i $HOME/.$i"
@@ -15,6 +15,13 @@ if [ ! -e $HOME/.vim ]; then
     mkdir $HOME/.vim/bundle
     git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 else
-    echo .vim directory or link exists. Aborting.
+    echo .vim directory or link exists. Skipping vundle installation
+fi
+
+if [ ! -e $HOME/.tmux ]; then
+    ln -sf $d/tmux $HOME/.tmux
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+else
+    echo .tmux directory or link exists. Skipping tpm installation
 fi
 
